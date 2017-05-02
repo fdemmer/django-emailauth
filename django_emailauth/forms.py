@@ -16,15 +16,22 @@ class EmailUserCreationForm(forms.ModelForm):
         'duplicate_email': _("A user with that e-mail already exists."),
         'password_mismatch': _("The two password fields didn't match."),
     }
-    email = forms.RegexField(label=_("E-mail"), max_length=254,
+    email = forms.RegexField(
+        label=_("E-mail"),
+        max_length=254,
         regex=r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$',
         help_text=_("A valid e-mail address is required. 254 characters or fewer."),
-        error_messages={'invalid': _("Please enter a valid email address.")})
-    password1 = forms.CharField(label=_("Password"),
-        widget=forms.PasswordInput)
-    password2 = forms.CharField(label=_("Password confirmation"),
+        error_messages={'invalid': _("Please enter a valid email address.")},
+    )
+    password1 = forms.CharField(
+        label=_("Password"),
         widget=forms.PasswordInput,
-        help_text=_("Enter the same password as above, for verification."))
+    )
+    password2 = forms.CharField(
+        label=_("Password confirmation"),
+        widget=forms.PasswordInput,
+        help_text=_("Enter the same password as above, for verification."),
+    )
 
     class Meta:
         model = EmailUser
@@ -57,14 +64,19 @@ class EmailUserCreationForm(forms.ModelForm):
 
 
 class EmailUserChangeForm(forms.ModelForm):
-    email = forms.RegexField(label=_("E-mail"), max_length=254,
+    email = forms.RegexField(
+        label=_("E-mail"),
+        max_length=254,
         regex=r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$',
         help_text=_("A valid e-mail address is required. 254 characters or fewer."),
-        error_messages={'invalid': _("Please enter a valid email address.")})
-    password = ReadOnlyPasswordHashField(label=_("Password"),
+        error_messages={'invalid': _("Please enter a valid email address.")},
+    )
+    password = ReadOnlyPasswordHashField(
+        label=_("Password"),
         help_text=_("Raw passwords are not stored, so there is no way to see "
                     "this user's password, but you can change the password "
-                    "using <a href=\"password/\">this form</a>."))
+                    "using <a href=\"password/\">this form</a>."),
+    )
 
     class Meta:
         model = EmailUser
