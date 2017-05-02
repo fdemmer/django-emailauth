@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.core.validators import validate_email
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 
@@ -16,10 +17,10 @@ class EmailUserCreationForm(forms.ModelForm):
         'duplicate_email': _("A user with that e-mail already exists."),
         'password_mismatch': _("The two password fields didn't match."),
     }
-    email = forms.RegexField(
+    email = forms.CharField(
         label=_("E-mail"),
         max_length=254,
-        regex=r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$',
+        validators=[validate_email],
         help_text=_("A valid e-mail address is required. 254 characters or fewer."),
         error_messages={'invalid': _("Please enter a valid email address.")},
     )
@@ -64,10 +65,10 @@ class EmailUserCreationForm(forms.ModelForm):
 
 
 class EmailUserChangeForm(forms.ModelForm):
-    email = forms.RegexField(
+    email = forms.CharField(
         label=_("E-mail"),
         max_length=254,
-        regex=r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$',
+        validators=[validate_email],
         help_text=_("A valid e-mail address is required. 254 characters or fewer."),
         error_messages={'invalid': _("Please enter a valid email address.")},
     )
